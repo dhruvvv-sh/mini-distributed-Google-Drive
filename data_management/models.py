@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy import Column, String, DateTime, ForeignKey, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 from data_management.database import Base
@@ -7,6 +7,9 @@ import uuid
 
 class Folder(Base):
     __tablename__ = "folders"
+    __table_args__ = (
+    UniqueConstraint("name", "parent_folder_id","owner_id"),
+    )
 
     id = Column(
         UUID(as_uuid=True),
